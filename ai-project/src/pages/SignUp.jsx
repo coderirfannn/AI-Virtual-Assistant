@@ -5,10 +5,13 @@ import axios from 'axios';
 
 function SignUp() {
   const [formData, setFormData] = useState({
-    fullName: '',
+    name: '', // Changed from fullName to name
     email: '',
     password: '',
   });
+
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -18,24 +21,25 @@ function SignUp() {
     }));
   };
 
-  const {serverUrl} = useContext(userdataContext)
+  const { serverUrl } = useContext(userdataContext);
 
-  const handelSignUpPage = async(e)=>{
-     e.preventDefault();
+  const handelSignUpPage = async (e) => {
+    e.preventDefault();
+    setError('');
+    setSuccess('');
+    
     try {
+      const result = await axios.post(`${serverUrl}/signup`, formData, {
+        withCredentials: true,
+      });
 
-      let result = axios.post(`${serverUrl}/signup` ,formData ,{withCredentials:true})
       console.log(result.data);
-      
-      
+      setSuccess('Signup successful! You can now log in.');
     } catch (error) {
-      console.log(error);
-      
+      console.error(error);
+      setError(error.response?.data || 'Something went wrong.');
     }
-
-  }
-
-
+  };
 
   return (
     <div
@@ -50,8 +54,8 @@ function SignUp() {
             <label className="block text-gray-700 mb-1">Full Name</label>
             <input
               type="text"
-              name="fullName"
-              value={formData.fullName}
+              name="name" // Make sure this matches backend field
+              value={formData.name}
               onChange={handleChange}
               placeholder="John Doe"
               className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -82,6 +86,9 @@ function SignUp() {
             />
           </div>
 
+          {error && <p className="text-red-600 text-sm text-center">{error}</p>}
+          {success && <p className="text-green-600 text-sm text-center">{success}</p>}
+
           <button
             type="submit"
             className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-xl transition duration-200 font-semibold"
@@ -91,7 +98,10 @@ function SignUp() {
         </form>
 
         <p className="mt-4 text-sm text-center text-gray-600">
-          Already have an account? <a href="/login" className="text-blue-600 hover:underline">Log in</a>
+          Already have an account?{' '}
+          <a href="/login" className="text-blue-600 hover:underline">
+            Log in
+          </a>
         </p>
       </div>
     </div>
