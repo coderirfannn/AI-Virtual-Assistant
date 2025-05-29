@@ -1,7 +1,8 @@
 import bcrypt from "bcrypt"
 import { genToken } from "../config/token"
+import User from "../models/user.models"
 
-const signUp = async (req ,res)=>{
+export const signUp = async (req ,res)=>{
     const {name ,email , password} =req.body
 
     const existEmail = await User.find({email})
