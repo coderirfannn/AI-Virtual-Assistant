@@ -9,5 +9,6 @@ export const getCurrentUser = async (req, res) => {
     console.error('Error fetching current user:', error);
     res.status(500).json({ message: 'Internal server error' });
   }
-  
+
 }
+
