@@ -1,8 +1,15 @@
 import mongoose from "mongoose";
 import express from "express";
+import { userRoute } from "./routes/user.route.js";
+import cookieParser from "cookie-parser";
 
 
 const app = express();
+
+app.use(express.json())
+app.use(cookieParser())
+
+app.use("/api/v1",userRoute)
 
 
 
@@ -12,7 +19,7 @@ mongoose.connect("mongodb+srv://roshnibarodiya1:t65b7NhyOsvqew1q@cluster0.7ecfwz
     console.log("Baby Db is connected ho gya ");
     
 }).catch((e)=>{
-    console.log("baby data base faild ho gya");
+    console.log("baby data base faild ho gya" ,e);
     
 })
 

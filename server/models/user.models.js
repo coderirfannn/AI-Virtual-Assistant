@@ -13,16 +13,16 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
-    },
-    assistants: {
-        type: [String],
-        
-        },
-        history: {
-        type: [String],
-        },
+  },
+  assistants: {
+    type: [String],
 
-  }, {timestamps: true});
+  },
+  history: {
+    type: [String],
+  },
+
+}, { timestamps: true });
 
 const User = mongoose.model('User', userSchema);
 export default User;
