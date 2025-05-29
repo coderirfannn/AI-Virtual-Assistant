@@ -8,7 +8,7 @@ const app = express();
 
 
 
-mongoose.connect("").then(()=>{
+mongoose.connect("mongodb+srv://roshnibarodiya1:t65b7NhyOsvqew1q@cluster0.7ecfwzn.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0").then(()=>{
     console.log("Baby Db is connected ho gya ");
     
 }).catch((e)=>{
