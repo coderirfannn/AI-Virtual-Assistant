@@ -9,8 +9,6 @@ function App() {
       <Routes>
         <Route path="/" element={<SignUp />} />
         <Route path="/signin" element={<SignIn />} />
-
-        {/* Add more routes as needed */}
       </Routes>
   
   );
